@@ -20,7 +20,9 @@ export class CardComponent implements OnInit {
     this.viewClicked.emit({id: this.card.id});
   }
 
-  onDeleteClick() {
+  onDeleteClick(e) {
+    e.preventDefault();
+    console.log(this.card.id);
     this.deleteClicked.emit({id: this.card.id});
   }
 }

@@ -21,6 +21,13 @@ export class ListComponent implements OnInit {
   }
 
   deleteClicked(id) {
+    this._cardService.deleteCard(id)
+      .subscribe(
+        () => {},
+        (err) => {
+          console.warn(`Hiba a tölésnél: ${err}`);
+        }
+      );
 
   }
 }
