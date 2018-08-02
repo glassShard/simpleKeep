@@ -16,4 +16,11 @@ export class ListComponent implements OnInit {
     this.cards$ = this._cardService.getList();
   }
 
+  viewClicked(id) {
+
+  }
+
+  deleteClicked(id) {
+
+  }
 }

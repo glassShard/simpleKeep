@@ -11,6 +11,7 @@ import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AppRoutingModule } from './/app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NavComponent,
     EditComponent,
     ListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
