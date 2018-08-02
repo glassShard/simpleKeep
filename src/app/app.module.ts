@@ -9,19 +9,23 @@ import { ListComponent } from './list/list.component';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+import { AppRoutingModule } from './/app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     EditComponent,
-    ListComponent
+    ListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     CollapseModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
