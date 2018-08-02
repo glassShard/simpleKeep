@@ -2,3 +2,22 @@ body {
   background-color: #e8e8e8;
   min-height: 100vh;
 }
+
+.card {
+  background-color: rgb(250,250,250);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+
+.card-footer {
+  text-align: right;
+  background-color: rgb(250,250,250);
+  border-top: none;
+}
+
+a {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+a:hover {
+  color: rgba(0,0,0,0.7);
+}

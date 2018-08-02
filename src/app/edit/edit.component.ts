@@ -14,7 +14,6 @@ import {take} from 'rxjs/internal/operators';
 export class EditComponent implements OnInit {
   public cardForm: FormGroup;
   public card: CardModel;
-  public submitted = false;
 
   constructor(private _fb: FormBuilder,
               private _route: ActivatedRoute,
@@ -25,7 +24,6 @@ export class EditComponent implements OnInit {
     this.cardForm = this._fb.group({text: ''});
 
     const cardId = this._route.snapshot.firstChild.params['id'];
-    console.log(this._route.snapshot.firstChild);
 
     let cardModelObs: Observable<CardModel>;
 
@@ -37,7 +35,6 @@ export class EditComponent implements OnInit {
     }
 
     cardModelObs.subscribe((card: CardModel) => {
-      console.log(card);
       if (card === null) {
         this._router.navigate(['404']).then();
       } else {
@@ -51,7 +48,7 @@ export class EditComponent implements OnInit {
 
   onSaveClick(e) {
     e.preventDefault();
-    this.submitted = true;
+    if (!this.cardForm.value.text) { return; }
 
     this.cardForm.value.text = this.cardForm.value.text.trim();
     Object.assign(this.card, this.cardForm.value);
