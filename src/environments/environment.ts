@@ -11,7 +11,8 @@ export const environment = {
     projectId: 'mykeep-dfd61',
     storageBucket: 'mykeep-dfd61.appspot.com',
     messagingSenderId: '650224240519'
-  }
+  },
+  root: 'http://localhost:4200'
 };
 
 /*

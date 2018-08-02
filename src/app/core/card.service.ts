@@ -14,8 +14,25 @@ export class CardService {
     return this._afDb.list('cards').valueChanges();
   }
 
-  deleteCard(id: string) {
+  getCard(id: string): Observable<any> {
+    return this._afDb.object(`/cards/${id}`).valueChanges();
+  }
+
+  deleteCard(id: string): Observable<any> {
     return from(this._afDb.object(`/cards/${id}`).remove());
   }
-}
 
+  saveCard(card: CardModel) {
+    if (card.id) {
+      return this._afDb.object(`/cards/${card.id}`).update(card);
+    } else {
+      return this._afDb.list('cards').push(card)
+        .then(response => {
+
+          Object.assign(card, {id: response.key});
+
+          this._afDb.object(`/cards/${card.id}`).update(card);
+        });
+    }
+  }
+}

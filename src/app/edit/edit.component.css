@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: stretch;
+}
+
+.editCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: stretch;
+}
+
+textarea {
+  border-style: none;
+  border-color: transparent;
+  overflow: auto;
+  outline: none;
+  resize: none;
+  height: auto;
+  max-height: 300px;
+  width: 100%;
+}

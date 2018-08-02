@@ -1,0 +1,14 @@
+<div class="container editCard  mt-3">
+  <div class="card col-12 col-md-8 pl-0 pr-0 mt-3">
+    <div class="card-body">
+      <form [formGroup]="cardForm" (ngSubmit)="onSaveClick()">
+          <textarea formControlName="text" placeholder="Irj ide valamit..."></textarea>
+      </form>
+    </div>
+    <div class="card-footer">
+      <a href="#" class="card-link" title="Save" (click)="onSaveClick($event)"><i class="icon-database"></i></a>
+      <a href="#" class="card-link" title="Delete" (click)="onDeleteClick($event)"><i class="icon-trash"></i></a>
+    </div>
+  </div>
+</div>
+

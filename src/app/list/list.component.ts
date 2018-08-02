@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CardService} from '../core/card.service';
 import {Observable} from 'rxjs';
+import {CardModel} from '../core/card-model';
 
 @Component({
   selector: 'app-list',
@@ -8,7 +9,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  public cards$: Observable<any[]>;
+  public cards$: Observable<CardModel[]>;
 
   constructor(private _cardService: CardService) { }
 
@@ -28,6 +29,5 @@ export class ListComponent implements OnInit {
           console.warn(`Hiba a tölésnél: ${err}`);
         }
       );
-
   }
 }

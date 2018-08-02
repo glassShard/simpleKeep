@@ -6,19 +6,11 @@ import {CardModel} from '../core/card-model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() card: CardModel;
-  @Output() viewClicked = new EventEmitter();
   @Output() deleteClicked = new EventEmitter();
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  onViewClick() {
-    this.viewClicked.emit({id: this.card.id});
-  }
 
   onDeleteClick(e) {
     e.preventDefault();
