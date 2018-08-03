@@ -9,12 +9,16 @@ import {CardModel} from '../core/card-model';
 export class CardComponent {
   @Input() card: CardModel;
   @Output() deleteClicked = new EventEmitter();
+  @Output() viewClicked = new EventEmitter();
 
   constructor() { }
 
   onDeleteClick(e) {
     e.preventDefault();
-    console.log(this.card.id);
     this.deleteClicked.emit({id: this.card.id});
+  }
+
+  onViewClick(id) {
+    this.viewClicked.emit({id: this.card.id});
   }
 }

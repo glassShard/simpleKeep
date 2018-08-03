@@ -1,8 +1,8 @@
 <div class="container editCard  mt-3">
   <div class="card col-12 col-md-8 pl-0 pr-0 mt-3">
     <div class="card-body">
-      <form [formGroup]="cardForm" (ngSubmit)="onSaveClick()">
-          <textarea formControlName="text" placeholder="Irj ide valamit..."></textarea>
+      <form [formGroup]="cardForm">
+          <textarea formControlName="text" placeholder="Irj ide valamit..." autofocus></textarea>
       </form>
     </div>
     <div class="card-footer">

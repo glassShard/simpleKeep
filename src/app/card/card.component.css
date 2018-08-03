@@ -6,6 +6,7 @@
 .card-body {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .card-overlay {
