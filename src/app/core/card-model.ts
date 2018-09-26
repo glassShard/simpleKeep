@@ -12,6 +12,10 @@ export class MongoList {
     _embedded: any[];
     _id: string;
     _returned: number;
+
+    constructor(param?: MongoList) {
+        Object.assign(this, param);
+    }
 }
 
 export class MongoCard {

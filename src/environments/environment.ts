@@ -19,7 +19,8 @@ export const environment = {
     httpOptions: {
         headers: new HttpHeaders({
             'Authorization': 'Basic ' + btoa('admin:changeit')
-        })
+        }),
+        reportProgress: true
     }
 };
 
