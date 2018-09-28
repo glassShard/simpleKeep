@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CardModel, MongoCard, MongoList} from './card-model';
 import {Observable, of} from 'rxjs';
-import {HttpClient, HttpEvent, HttpEventType, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {switchMap, tap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -13,59 +13,61 @@ export class CardService {
     }
 
 
-    getList(): Observable<HttpEvent<any>> {
+    consoleLog(event: HttpEvent<object>, method) {
+        if (event.type === HttpEventType.Sent) {
+            console.log(`${method} http sent`);
+        }
+        if (event.type === HttpEventType.Response) {
+            console.log(`${method} http response received`);
+        }
+    }
+
+    getList(): Observable<CardModel[]> {
         const httpReq = new HttpRequest('GET', `${environment.mongoUrl}`, environment.httpOptions);
-        return this._http.request(httpReq);
+        return this.createRequest(httpReq, 'getList')
+            .pipe(
+                map((body: MongoList) => {
+                    return body._embedded.map((elem: MongoCard): CardModel => {
+                        return {
+                            'id': elem._id.$oid,
+                            'text': elem.text
+                        };
+                    });
+                })
+            );
     }
 
     getCard(id: string): Observable<CardModel> {
-        return this._http.get<MongoCard>(`${environment.mongoUrl}/${id}`, environment.httpOptions)
-            .pipe(switchMap((response: MongoCard) => {
-                return of(new CardModel({id: response._id.$oid, text: response.text}));
-            }));
+        const httpReq = new HttpRequest('GET', `${environment.mongoUrl}/${id}`, environment.httpOptions);
+        return this.createRequest(httpReq, 'getCard')
+            .pipe(
+                map((body: MongoCard) => {
+                    return new CardModel({id: body._id.$oid, text: body.text});
+                })
+            );
     }
 
-    deleteCard(id: string): Observable<null> {
-        return this._http.delete<null>(`${environment.mongoUrl}/${id}`, environment.httpOptions);
+    deleteCard(id: string): Observable<HttpEvent<object>> {
+        const httpReq = new HttpRequest('DELETE', `${environment.mongoUrl}/${id}`, environment.httpOptions);
+        return this.createRequest(httpReq, 'delete');
     }
 
-    saveCard(card: CardModel): Observable<null> {
+    saveCard(card: CardModel): Observable<HttpEvent<object>> {
+        let httpReq;
         if (card.id) {
-            return this._http.put<null>(`${environment.mongoUrl}/${card.id}`, {'text': card.text}, environment.httpOptions);
+            httpReq = new HttpRequest('PUT', `${environment.mongoUrl}/${card.id}`, {'text': card.text}, environment.httpOptions);
         } else {
-            return this._http.post<null>(`${environment.mongoUrl}`, {'text': card.text}, environment.httpOptions);
+            httpReq = new HttpRequest('POST', `${environment.mongoUrl}`, {'text': card.text}, environment.httpOptions);
         }
+        return this.createRequest(httpReq, 'save');
     }
 
-    /*    getList(): Observable<any[]> {
-            return this._afDb.list('cards').valueChanges();
-        }
-
-        getCard(id: string): Observable<any> {
-            return this._afDb.object(`/cards/${id}`).valueChanges();
-        }
-
-        deleteCard(id: string): Observable<any> {
-            return from(this._afDb.object(`/cards/${id}`).remove());
-        }
-
-        saveCard(card: CardModel) {
-            if (card.id) {
-                return this._afDb.object(`/cards/${card.id}`).update(card);
-            } else {
-                return this._afDb.list('cards').push(card)
-                    .then(response => {
-
-                        Object.assign(card, {id: response.key});
-
-                        this._afDb.object(`/cards/${card.id}`).update(card);
-                    });
-            }
-        }*/
-
-    createCard() {
-        console.log('this is it');
-
-        return this._http.post(environment.mongoUrl, {'text': 'this is the dafault card'}, environment.httpOptions);
+    createRequest(request, method): Observable<HttpEvent<object>> {
+        return this._http.request(request)
+            .pipe(
+                tap((event) => this.consoleLog(event, method)),
+                filter((ev: HttpEvent<object>) => ev.type === HttpEventType.Response),
+                map((res: HttpResponse<any>) => res.body)
+            );
     }
 }

@@ -28,14 +28,12 @@ export class EditComponent implements OnInit {
         let cardModelObs: Observable<CardModel>;
 
         if (cardId) {
-            console.log('id:', cardId);
             cardModelObs = this._cardService.getCard(cardId);
         } else {
             cardModelObs = of(new CardModel());
         }
 
         cardModelObs.subscribe((card: CardModel) => {
-            console.log(card);
             if (card === null) {
                 this._router.navigate(['404']).then();
             } else {
@@ -58,7 +56,6 @@ export class EditComponent implements OnInit {
 
         this._cardService.saveCard(this.card)
             .subscribe(response => {
-                console.log(response);
                 this._router.navigate(['./']);
             }, error => console.warn(error));
     }
@@ -69,7 +66,11 @@ export class EditComponent implements OnInit {
             this._router.navigate(['./']);
         }
         this._cardService.deleteCard(this.card.id).subscribe(
-            () => this._router.navigate(['./']),
-            (error) => console.warn(error));
+            (res) => {
+                console.log(res);
+                this._router.navigate(['./']);
+            },
+                    (error) => console.warn(error)
+            );
     }
 }

@@ -12,7 +12,7 @@ import {HttpEventType} from '@angular/common/http';
     styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-    public cards: CardModel[];
+    public cards$: Observable<CardModel[]>;
 
     constructor(private _cardService: CardService,
                 private _router: Router) {
@@ -23,20 +23,7 @@ export class ListComponent implements OnInit {
     }
 
     loadCards() {
-        this._cardService.getList().subscribe(event => {
-            if (event.type === HttpEventType.Sent) {
-                console.log('http sent');
-            }
-            if (event.type === HttpEventType.Response) {
-                console.log('http response received');
-                this.cards = event.body._embedded.map((elem: MongoCard): CardModel => {
-                    return {
-                        'id': elem._id.$oid,
-                        'text': elem.text
-                    };
-                });
-            }
-        });
+        this.cards$ = this._cardService.getList();
     }
 
 
