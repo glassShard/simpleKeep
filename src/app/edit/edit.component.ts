@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CardService} from '../core/card.service';
 import {Observable, of} from 'rxjs';
 import {CardModel} from '../core/card-model';
+import {HttpCardService} from '../core/card-service/http/http-card.service';
 
 @Component({
     selector: 'app-edit',
@@ -16,7 +16,7 @@ export class EditComponent implements OnInit {
 
     constructor(private _fb: FormBuilder,
                 private _route: ActivatedRoute,
-                private _cardService: CardService,
+                private _cardService: HttpCardService,
                 private _router: Router) {
     }
 

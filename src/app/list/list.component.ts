@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CardService} from '../core/card.service';
-import {Observable, of} from 'rxjs';
-import {CardModel, MongoCard, MongoList} from '../core/card-model';
+import {Observable} from 'rxjs';
+import {CardModel} from '../core/card-model';
 import {Router} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {HttpEventType} from '@angular/common/http';
+import {HttpCardService} from '../core/card-service/http/http-card.service';
 
 @Component({
     selector: 'app-list',
@@ -14,7 +12,7 @@ import {HttpEventType} from '@angular/common/http';
 export class ListComponent implements OnInit {
     public cards$: Observable<CardModel[]>;
 
-    constructor(private _cardService: CardService,
+    constructor(private _cardService: HttpCardService,
                 private _router: Router) {
     }
 
