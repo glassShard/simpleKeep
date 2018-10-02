@@ -1,7 +1,10 @@
 import {CardModel} from 'src/app/core/card-model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
+import {EventEmitter} from '@angular/core';
 
 export interface CardServiceInterface {
+    requestStatus: Subject<object>;
+
     getList(): Observable<CardModel[]>;
 
     getCard(id: string): Observable<CardModel>;

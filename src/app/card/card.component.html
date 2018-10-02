@@ -1,12 +1,12 @@
 <div class="card">
-  <div class="card-body" (click)="onViewClick(card.id)">
-    <p class="card-text">{{card.text}}</p>
-    <div class="card-overlay"></div>
-  </div>
-  <div class="card-footer">
-    <a href="#" class="card-link"
-       title="Részletek / Módosítás"
-       [routerLink]="['/card', card.id]"><i class="icon-eye"></i></a>
-    <a href="#" class="card-link" title="Törlés" (click)="onDeleteClick($event)"><i class="icon-trash"></i></a>
-  </div>
+    <div class="card-body" (click)="onViewClick(card.id)">
+        <p class="card-text">{{card.text}}</p>
+        <div class="card-overlay"></div>
+    </div>
+    <div class="card-footer">
+        <a href="#" class="card-link"
+           title="Részletek / Módosítás"
+           [routerLink]="['/card', card.id]"><i class="icon-eye"></i></a>
+        <a href="#" class="card-link" title="Törlés" (click)="onDeleteClick($event)"><i class="icon-trash"></i></a>
+    </div>
 </div>

@@ -1,9 +1,9 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {CardModel, MongoCard, MongoList} from '../../card-model';
 import {environment} from '../../../../environments/environment';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import {CardServiceInterface} from '../card-service-interface';
 
 @Injectable({
@@ -13,19 +13,17 @@ import {CardServiceInterface} from '../card-service-interface';
 export class HttpCardService implements CardServiceInterface {
     private baseUrl = environment.mongoUrl;
     private httpOptions = environment.httpOptions;
-    public emitStart = new EventEmitter();
-    public emitEnd = new EventEmitter();
+    public requestStatus = new EventEmitter();
 
     constructor(private _http: HttpClient) {
-        this.emitStart.subscribe(data => console.log(data));
-        this.emitEnd.subscribe(data => console.log(data));
     }
 
     private sendHttp(method, url, options, body?) {
-        this.emitStart.emit(`${method} httpStarted`);
+        this.requestStatus.emit({log: `${method} http request started`, loader: true});
         const req = body ? this._http[method](url, body, options) : this._http[method](url, options);
-        this.emitEnd.emit(`${method} httpEnded`);
-        return req;
+        return req.pipe(
+            tap(() => this.requestStatus.emit({log: `${method} http request ended`, loader: false}))
+        );
     }
 
     public getList(): Observable<CardModel[]> {

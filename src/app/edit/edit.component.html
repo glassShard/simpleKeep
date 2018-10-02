@@ -1,18 +1,17 @@
-<div class="container editCard  mt-3" *ngIf="card; else loader">
-  <div class="card col-12 col-md-8 pl-0 pr-0 mt-3">
-    <div class="card-body">
-      <form [formGroup]="cardForm">
-          <textarea formControlName="text" placeholder="Irj ide valamit..." autofocus></textarea>
-      </form>
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div class="container editCard  mt-3" *ngIf="card && !isLoading">
+    <div class="card col-12 col-md-8 pl-0 pr-0 mt-3">
+        <div class="card-body">
+            <form [formGroup]="cardForm">
+                <textarea formControlName="text" placeholder="Irj ide valamit..." autofocus></textarea>
+            </form>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="card-link" title="Mentés" (click)="onSaveClick($event)"><i class="icon-floppy"></i></a>
+            <a href="#" class="card-link" title="Törlés" (click)="onDeleteClick($event)"><i class="icon-trash"></i></a>
+        </div>
     </div>
-    <div class="card-footer">
-      <a href="#" class="card-link" title="Mentés" (click)="onSaveClick($event)"><i class="icon-floppy"></i></a>
-      <a href="#" class="card-link" title="Törlés" (click)="onDeleteClick($event)"><i class="icon-trash"></i></a>
-    </div>
-  </div>
 </div>
 
-<ng-template #loader>
-  <app-loader></app-loader>
-</ng-template>
 
