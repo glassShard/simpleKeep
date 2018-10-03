@@ -6,6 +6,7 @@ import {HttpCardService} from '../core/card-service/http/http-card.service';
 import {LoggerService} from '../core/logger.service';
 import {FirebaseCardService} from '../core/card-service/firebase/firebase-card.service';
 import {CardServiceFactory} from '../core/card-service/card-service-factory';
+import {CardServiceInterface} from '../core/card-service/card-service-interface';
 
 @Component({
     selector: 'app-list',
@@ -15,10 +16,12 @@ import {CardServiceFactory} from '../core/card-service/card-service-factory';
 export class ListComponent implements OnInit, OnDestroy {
     public cards$: Observable<CardModel[]>;
     public isLoading = true;
+    private _cardService: CardServiceInterface;
     private _subscriptions: Subscription[] = [];
 
-    constructor(private _cardService: CardServiceFactory,
+    constructor(private _cardServiceFactory: CardServiceFactory,
                 private _router: Router) {
+        this._cardService = this._cardServiceFactory.getCardService();
     }
 
     ngOnInit() {

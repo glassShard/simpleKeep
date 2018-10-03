@@ -8,8 +8,8 @@ import {FirebaseCardService} from './firebase/firebase-card.service';
     CommonModule
   ],
   declarations: [
-      HttpCardService,
-      FirebaseCardService
+/*      HttpCardService,
+      FirebaseCardService*/
   ]
 })
 export class CardServiceModule { }

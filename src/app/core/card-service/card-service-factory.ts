@@ -10,27 +10,11 @@ import {CardModel} from '../card-model';
 
 export class CardServiceFactory {
     private serviceOption = environment.service;
-    private _cardService: HttpCardService | FirebaseCardService;
-    public requestStatus: EventEmitter<{}>;
 
     constructor(private injector: Injector) {
-        this._cardService = this.serviceOption === 'firebase' ? this.injector.get(FirebaseCardService) : this.injector.get(HttpCardService);
-        this.requestStatus = this._cardService.requestStatus;
     }
 
-    getList() {
-        return this._cardService.getList();
-    }
-
-    getCard(id: string) {
-        return this._cardService.getCard(id);
-    }
-
-    deleteCard(id: string) {
-        return this._cardService.deleteCard(id);
-    }
-
-    saveCard(card: CardModel) {
-        return this._cardService.saveCard(card);
+    getCardService() {
+        return this.serviceOption === 'firebase' ? this.injector.get(FirebaseCardService) : this.injector.get(HttpCardService);
     }
 }

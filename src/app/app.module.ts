@@ -13,7 +13,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {CardComponent} from './card/card.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { LoaderComponent } from './loader/loader.component';
+import {LoaderComponent} from './loader/loader.component';
 
 @NgModule({
     declarations: [

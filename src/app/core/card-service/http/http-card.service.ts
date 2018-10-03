@@ -19,10 +19,10 @@ export class HttpCardService implements CardServiceInterface {
     }
 
     private sendHttp(method, url, options, body?) {
-        this.requestStatus.emit({log: `${method} http request started`, loader: true});
+        this.requestStatus.emit({status: `${method} http request started`, progress: true});
         const req = body ? this._http[method](url, body, options) : this._http[method](url, options);
         return req.pipe(
-            tap(() => this.requestStatus.emit({log: `${method} http request ended`, loader: false}))
+            tap(() => this.requestStatus.emit({status: `${method} http request ended`, progress: false}))
         );
     }
 
