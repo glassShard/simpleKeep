@@ -5,6 +5,7 @@ import {Observable, of, Subscription} from 'rxjs';
 import {CardModel} from '../core/card-model';
 import {HttpCardService} from '../core/card-service/http/http-card.service';
 import {FirebaseCardService} from '../core/card-service/firebase/firebase-card.service';
+import {CardServiceFactory} from '../core/card-service/card-service-factory';
 
 @Component({
     selector: 'app-edit',
@@ -19,7 +20,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     constructor(private _fb: FormBuilder,
                 private _route: ActivatedRoute,
-                private _cardService: FirebaseCardService,
+                private _cardService: CardServiceFactory,
                 private _router: Router) {
     }
 

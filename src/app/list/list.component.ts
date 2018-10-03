@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {HttpCardService} from '../core/card-service/http/http-card.service';
 import {LoggerService} from '../core/logger.service';
 import {FirebaseCardService} from '../core/card-service/firebase/firebase-card.service';
+import {CardServiceFactory} from '../core/card-service/card-service-factory';
 
 @Component({
     selector: 'app-list',
@@ -16,7 +17,7 @@ export class ListComponent implements OnInit, OnDestroy {
     public isLoading = true;
     private _subscriptions: Subscription[] = [];
 
-    constructor(private _cardService: FirebaseCardService,
+    constructor(private _cardService: CardServiceFactory,
                 private _router: Router) {
     }
 

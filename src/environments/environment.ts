@@ -17,5 +17,6 @@ export const environment = {
             'Authorization': 'Basic ' + btoa('admin:changeit')
         }),
         reportProgress: true
-    }
+    },
+    service: 'firebase'
 };
